@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require 'logger'
 
 require 'gamble/player'
@@ -45,7 +44,11 @@ module GambleMarket
   end
 
   module Factory
-    def self.read_csv(file_name='./data/data2-Table1.csv')
+    def self.read_csv(file_name=ARGV[0])
+      if file_name.nil?
+        puts "please give me a csv_filename"
+        exit
+      end
       CSV.read(file_name, headers: true, header_converters: :symbol, converters: :integer)
       # Player = Struct.new(:id, :name, :student_id, :q1str, :q1, :wtp1, :wtp2, :wta1, :wta2, :cash)
     end

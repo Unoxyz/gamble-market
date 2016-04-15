@@ -41,8 +41,12 @@ module GambleMarket
   end
 
   module Report
-    def cashes
+    def cashes(players)
+      players.collect(&:cash)
+    end
 
+    def goods(attr)
+      players.collet { |player| player.goods.collect(&attr) }
     end
   end
 end
