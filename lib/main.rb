@@ -38,7 +38,7 @@ module GambleMarket
       players.each { |player| player.ask_deal(deal_type, good_type) }
     end
 
-    def trade_step
+    def trade_by_turns
       players.pop.ask_deal(deal_type, good_type)
     end
   end
@@ -69,15 +69,19 @@ module GambleMarket
   module App
     def self.run
       players = Factory.make_players(Factory.read_csv)
+      players.extend Report
       Board.prepare
+
       trade1 = TradeOrder.new(players, BUY, A)
       trade2 = TradeOrder.new(players, SELL, A)
+
       LOG.info("Players start trading...")
       players.size.times do
-        trade1.trade_step
-        trade2.trade_step
+        trade1.trade_by_turns
+        trade2.trade_by_turns
       end
       LOG.info("Trading completed.\n" + "-" * 40)
+      # require 'pry'; binding.pry
     end
   end
 end

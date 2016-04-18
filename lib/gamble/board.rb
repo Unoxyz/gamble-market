@@ -19,7 +19,7 @@ module GambleMarket
       dealer_good = dealer.good(good_type)
       unless goods.include? dealer_good
         goods << dealer_good
-        LOG.info("#{dealer.name} registered #{good_type} #{dealer.good(good_type).price[deal_type]} on #{deal_type}.")
+        LOG.info("#{dealer.name} registered #{good_type} for #{dealer.good(good_type).price[deal_type]} on #{deal_type}.")
       else
         LOG.info("#{dealer.name}'s #{good_type} is already registered .")
       end

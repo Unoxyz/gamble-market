@@ -9,7 +9,7 @@ module GambleMarket
     end
 
     def ask_deal(deal_type, good_type)
-      LOG.info("#{self.name} ask deal to #{deal_type} #{good_type}")
+      LOG.info("#{self.name} ask deal to #{deal_type.downcase} #{good_type} for #{good(A).price[deal_type]}")
       if deal_type == SELL and not in_stock?(good_type)
         LOG.info "Good #{good_type} is out of stock."
         return
@@ -41,12 +41,12 @@ module GambleMarket
   end
 
   module Report
-    def cashes(players)
-      players.collect(&:cash)
+    def cashes
+      self.collect(&:cash)
     end
 
     def goods(attr)
-      players.collet { |player| player.goods.collect(&attr) }
+      self.collect { |player| player.goods.collect(&attr) }
     end
   end
 end
