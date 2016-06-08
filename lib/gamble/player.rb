@@ -54,12 +54,8 @@ module GambleMarket
       self.collect { |player| player.goods.collect(&attr) }
     end
 
-    def timestamp
-      Time.now.strftime('%Y-%m-%d_%H-%M-%S')
-    end
-
     def export_csv
-      filename = "final_accounts_" + timestamp + ".csv"
+      filename = GambleMarket.timestamp + "_final_accounts" + ".csv"
       CSV.open("log/" + filename, "w") do |csv|
         csv << %w(id cash A B)
         self.each do |p|

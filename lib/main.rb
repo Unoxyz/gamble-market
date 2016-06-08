@@ -13,8 +13,13 @@ module GambleMarket
   WTA = 'willingness to accept'
   WTP = 'willingness to pay'
 
+  def self.timestamp
+    Time.now.strftime('%Y-%m-%d_%H-%M-%S')
+  end
+
   Dir.mkdir("log") unless Dir.exist?("log/")
-  LOG = Logger.new('log/app.log', 'daily')
+  filename = timestamp + "_app" + ".log"
+  LOG = Logger.new('log/' + filename)
   LOG.level = Logger::DEBUG
   LOG.datetime_format = '%Y-%m-%d %H:%M:%S'
 
