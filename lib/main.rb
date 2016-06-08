@@ -21,7 +21,7 @@ module GambleMarket
 
   Good = Struct.new(:type, :price, :dealer, :quantity)
 
-  Statement  = Struct.new(:board, :buyer, :seller, :good, :price) do
+  Statement = Struct.new(:board, :buyer, :seller, :good, :price) do
     def to_s
       "#{board.deal_type} B:#{buyer.name} S:#{seller.name} #{good.type} #{price}"
     end
@@ -101,6 +101,7 @@ module GambleMarket
         trade2.trade_by_turns
       end
       LOG.info("Trading for B completed.\n" + "-" * 40)
+      players.export_csv
       # require 'pry'; binding.pry
     end
 

@@ -41,12 +41,32 @@ module GambleMarket
   end
 
   module Report
+    def ids
+      self.collect { |p| p.info[:id] }
+    end
+
     def cashes
       self.collect(&:cash)
     end
 
+    # attr is Symbol
     def goods(attr)
       self.collect { |player| player.goods.collect(&attr) }
     end
+
+    def timestamp
+      Time.now.strftime('%Y-%m-%d_%H-%M-%S')
+    end
+
+    def export_csv
+      filename = "final_accounts_" + timestamp + ".csv"
+      CSV.open("log/" + filename, "w") do |csv|
+        csv << %w(id cash A B)
+        self.each do |p|
+          csv << [ p.info[:id], p.cash, p.good(A).quantity, p.good(B).quantity ]
+        end
+      end
+    end
   end
+
 end
