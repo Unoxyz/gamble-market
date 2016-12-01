@@ -3,7 +3,7 @@
 
 clear all
 insheet using "data/players.csv"
-save _players,replace
+save data/_players,replace
 
 local files : dir "log" files "*.csv"
 local counter = 0 
@@ -11,7 +11,7 @@ local counter = 0
 foreach file in `files'{
 	insheet using "log/`file'",clear
 	save `file',replace
-	use _players,clear
+	use data/_players,clear
 	merge 1:1 id using `file'
 	rm `file'
 	rename cash cash`counter'
@@ -19,5 +19,5 @@ foreach file in `files'{
 	rename b b`counter'
 	drop _merge
 	local counter = `counter'+1
-	save _players,replace
+	save data/_players,replace
 }

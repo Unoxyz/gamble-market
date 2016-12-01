@@ -51,7 +51,7 @@ module GambleMarket
   module Factory
     def self.read_csv(file_name=ARGV[0])
       file_name = ARGV[0] || 'data/players.csv'
-      CSV.read(file_name, headers: true, header_converters: :symbol, converters: :integer)
+      CSV.read(file_name, :col_sep => "\t", headers: true, header_converters: :symbol, converters: :integer )
       # Player = Struct.new(:id, :name, :student_id, :q1str, :q1, :wtp1, :wtp2, :wta1, :wta2, :cash)
     end
 
